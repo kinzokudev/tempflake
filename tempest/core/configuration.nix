@@ -341,6 +341,8 @@
       virt-manager
 
       grc
+
+      nfs-utils
     ];
 
     sessionVariables = {
