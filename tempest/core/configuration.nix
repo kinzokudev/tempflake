@@ -330,6 +330,7 @@
       minikube
       fluxcd
       talosctl
+      asdf-vm
       virt-manager
     ];
 
