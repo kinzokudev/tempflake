@@ -339,6 +339,8 @@
       ))
 
       virt-manager
+
+      grc
     ];
 
     sessionVariables = {
