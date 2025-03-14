@@ -246,6 +246,7 @@
       nodePackages_latest.nodejs
       statix
       deadnix
+      yaml-language-server
 
       tmux
 
