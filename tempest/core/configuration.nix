@@ -331,6 +331,13 @@
       fluxcd
       talosctl
       asdf-vm
+      (google-cloud-sdk.withExtraComponents (
+        with google-cloud-sdk.components;
+        [
+          gke-gcloud-auth-plugin
+        ]
+      ))
+
       virt-manager
     ];
 
