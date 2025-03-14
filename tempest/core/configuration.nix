@@ -136,7 +136,7 @@
     users = {
       ${userinfo.name} = {
         isNormalUser = true;
-        description = "Kira Hamza";
+        description = "Kira Shaw";
         extraGroups = [
           "networkmanager"
           "wheel"
