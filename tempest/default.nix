@@ -25,5 +25,6 @@
       # Import your home-manager configuration
       ${userinfo.name} = import ./hm;
     };
+    backupFileExtension = "backup";
   };
 }

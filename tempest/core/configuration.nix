@@ -327,34 +327,8 @@
       talosctl
     ];
 
-    shellAliases = {
-      tx = "tmux";
-      txn = "tmux new";
-      txa = "tmux attach";
-      txd = "tmux detach";
-      txk = "tmux kill-session";
-      txl = "tmux list-sessions";
-      dv = "direnv";
-      dva = "direnv allow";
-      dvs = "direnv status";
-      dvk = "direnv revoke";
-      dvr = "direnv reload";
-      ".." = "cd ..";
-      tfmt = "treefmt";
-      rb = "sudo nixos-rebuild switch --flake .";
-      fu = "sudo nix flake update";
-      ga = "git add .";
-      gc = "git commit -m";
-      gp = "git push -u origin";
-      lg = "lazygit";
-      az = "yazi";
-      nf = "neofetch";
-      ff = "fastfetch";
-      cl = "clear";
-      pm = "pulsemixer";
-      v = "fd --type f --hidden --exclude .git | fzf-tmux -p | xargs nvim";
-      udm = "udisksctl mount -b";
-      udu = "udisksctl unmount -b";
+    sessionVariables = {
+      DIRENV_LOG_FORMAT = "";
     };
   };
 
@@ -381,13 +355,6 @@
     # Install firefox.
     firefox.enable = true;
 
-    direnv = {
-      enable = true;
-      enableBashIntegration = true;
-      silent = true;
-      nix-direnv.enable = true;
-    };
-
     # Some programs need SUID wrappers, can be configured further or are
     # started in user sessions.
     # programs.mtr.enable = true;
@@ -404,23 +371,6 @@
       extraCompatPackages = with pkgs; [ proton-ge-bin ];
     };
 
-    fish = {
-      enable = true;
-      shellAbbrs = config.environment.shellAliases;
-      interactiveShellInit = ''
-        set fish_greeting
-        fish_vi_key_bindings
-
-        ${pkgs.zoxide}/bin/zoxide init fish | source
-        ${pkgs.thefuck}/bin/thefuck --alias | source
-        ${pkgs.fluxcd}/bin/flux completion fish | source
-        ${pkgs.talosctl}/bin/talosctl completion fish | source
-        ${pkgs.kubectl}/bin/kubectl completion fish | source
-        ${pkgs.minikube}/bin/minikube completion fish | source
-
-        export GPG_TTY=$(tty)
-      '';
-    };
   };
 
   virtualisation = {
