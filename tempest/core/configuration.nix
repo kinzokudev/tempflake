@@ -140,6 +140,9 @@
         extraGroups = [
           "networkmanager"
           "wheel"
+          "qemu-libvirtd"
+          "libvirtd"
+          "disk"
         ];
         packages = with pkgs; [
           kdePackages.kate
@@ -326,6 +329,7 @@
       minikube
       fluxcd
       talosctl
+      virt-manager
     ];
 
     sessionVariables = {
@@ -376,7 +380,26 @@
 
   virtualisation = {
     waydroid.enable = true;
+    libvirtd = {
+      enable = true;
+      extraConfig = ''
+        user="kinzoku"
+      '';
+
+      onBoot = "ignore";
+      onShutdown = "shutdown";
+
+      qemu = {
+        package = pkgs.qemu_kvm;
+        ovmf.enable = true;
+      };
+    };
   };
+
+  systemd.tmpfiles.rules = [
+    "f /dev/shm/looking-glass 0660 kinzoku qemu-libvirtd -"
+    "f /dev/shm/scream 0660 kinzoku qemu-libvirtd -"
+  ];
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
