@@ -389,6 +389,7 @@
       extraCompatPackages = with pkgs; [ proton-ge-bin ];
     };
 
+    noisetorch.enable = true;
     nix-ld.enable = true;
   };
 
