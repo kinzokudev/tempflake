@@ -4,6 +4,7 @@
   userinfo,
   inputs,
   lib,
+  hostname,
   ...
 }:
 
@@ -27,34 +28,6 @@
     # changes in each release.
     stateVersion = "24.11";
 
-    shellAliases = {
-      tx = "tmux";
-      txn = "tmux new";
-      txa = "tmux attach";
-      txd = "tmux detach";
-      txk = "tmux kill-session";
-      txl = "tmux list-sessions";
-      dv = "direnv";
-      dva = "direnv allow";
-      dvs = "direnv status";
-      dvk = "direnv revoke";
-      dvr = "direnv reload";
-      ".." = "cd ..";
-      tfmt = "treefmt";
-      rb = "sudo nixos-rebuild switch --flake .";
-      fu = "sudo nix flake update";
-      ga = "git add .";
-      gc = "git commit -m";
-      gp = "git push -u origin";
-      lg = "lazygit";
-      az = "yazi";
-      nf = "neofetch";
-      ff = "fastfetch";
-      cl = "clear";
-      pm = "pulsemixer";
-      v = "fd --type f --hidden --exclude .git | fzf-tmux -p | xargs nvim";
-      udm = "udisksctl mount -b";
-      udu = "udisksctl unmount -b";
     packages =
       with pkgs;
       [
@@ -154,13 +127,66 @@
     };
   };
   programs = {
+
     # Let Home Manager install and manage itself.
     home-manager.enable = true;
     fish = {
       enable = true;
-      shellAbbrs = config.home.shellAliases;
-      shellAliases = {
-        ls = "eza";
+      shellAbbrs = {
+        tx = "tmux";
+        txn = "tmux new";
+        txa = "tmux attach";
+        txd = "tmux detach";
+        txk = "tmux kill-session";
+        txl = "tmux list-sessions";
+        dv = "direnv";
+        dva = "direnv allow";
+        dvs = "direnv status";
+        dvk = "direnv revoke";
+        dvr = "direnv reload";
+        ".." = "cd ..";
+        tfmt = "treefmt";
+        rb = "sudo nixos-rebuild switch --flake .";
+        fu = "sudo nix flake update";
+        ga = "git add .";
+        gc = "git commit -m";
+        gp = "git push -u origin";
+        lg = "lazygit";
+        az = "yazi";
+        nf = "neofetch";
+        ff = "fastfetch";
+        cl = "clear";
+        pm = "pulsemixer";
+        v = "fd --type f --hidden --exclude .git | fzf-tmux -p | xargs nvim";
+        udm = "udisksctl mount -b";
+        udu = "udisksctl unmount -b";
+        fgk = "flux get ks";
+        fgka = "flux get ks -A";
+        fgkn = "flux get ks -n";
+        fgh = "flux get hr";
+        fgha = "flux get hr -A";
+        fghn = "flux get hr -n";
+        tfp = "terraform plan";
+        tfa = "terraform apply";
+        tfi = "terraform init";
+        tff = "terraform fmt";
+        cat = "bat";
+        "co" = {
+          expansion = "checkout";
+          position = "command";
+          command = "git";
+        };
+        "pl" = {
+          expansion = "pull --rebase --autostash";
+          position = "command";
+          command = "git";
+        };
+        "pf" = {
+          expansion = "push --force";
+          position = "command";
+          command = "git";
+        };
+        krew = "kubectl krew";
       };
       interactiveShellInit = ''
         set fish_greeting
