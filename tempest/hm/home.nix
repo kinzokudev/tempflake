@@ -124,6 +124,12 @@
         [push]
           autoSetupRemote = true
       '';
+      ".gitignore_global".text = ''
+        *~
+        .DS_Store
+        Thumbs.db
+        unittest.xml
+      '';
     };
   };
   programs = {
