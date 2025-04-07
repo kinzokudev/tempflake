@@ -88,6 +88,42 @@
         retry-delay 0
         retry-max-time 60
       '';
+      ".gitconfig".text = ''
+        [user]
+          name = Kira Rene
+          email = kira@renec88.xyz
+          signingKey = ${config.home.homeDirectory}/.ssh/id_ed25519.pub
+        [gpg]
+          format = ssh
+        [format]
+          signOff = true
+        [core]
+          autocrlf = input
+          editor = nvim
+          excludesfile = ${config.home.homeDirectory}/.gitignore_global
+        [commit]
+          gpgSign = true
+        [merge]
+          ff = only
+        [pull]
+          rebase = true
+        [status]
+          submoduleSummary = false
+        [tag]
+          gpgSign = true
+          forceSignAnnotated = true
+        [init]
+          defaultBranch = main
+        [filter "lfs"]
+          smudge = git-lfs smudge -- %f
+          process = git-lfs filter-process
+          required = true
+          clean = git-lfs clean -- %f
+        [url "ssh://git@github.com/"]
+          pushInsteadOf = https://github.com/
+        [push]
+          autoSetupRemote = true
+      '';
     };
   };
   programs = {
