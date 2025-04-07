@@ -340,6 +340,7 @@
 
       terraform
       terraform-ls
+      gh
 
       nodePackages_latest.nodejs
     ];
