@@ -61,8 +61,17 @@
         fd
         kubectl
         minikube
+
+        helmfile
         fluxcd
+        go-task
+        krew
+        cilium-cli
         talosctl
+        kubeconform
+        kustomize
+        stern
+        minijinja
       ];
     };
   };
