@@ -243,7 +243,6 @@
       tfsec
       dotenv-linter
       yamllint
-      nodePackages_latest.nodejs
       statix
       deadnix
       yaml-language-server
@@ -343,6 +342,8 @@
       grc
 
       nfs-utils
+
+      nodePackages_latest.nodejs
     ];
 
     sessionVariables = {
