@@ -338,6 +338,9 @@
 
       nfs-utils
 
+      terraform
+      terraform-ls
+
       nodePackages_latest.nodejs
     ];
 
