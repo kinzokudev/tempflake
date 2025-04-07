@@ -144,6 +144,9 @@
         exec = "mullvad-exclude DiscordCanary --enable-features=VaapiIgnoreDriverChecks,VaapiVideoEncoder,VaapiVideoDecoder,CanvasOopRasterization,UseMultiPlaneFormatForHardwareVideo,MiddleClickAutoscroll,UseOzonePlatform --ozone-platform=wayland";
       };
     };
+    configFile = {
+      "starship.toml".source = ./starship.toml;
+    };
   };
   programs = {
     # Let Home Manager install and manage itself.
