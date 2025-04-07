@@ -72,6 +72,9 @@
         kustomize
         stern
         minijinja
+      ]
+      ++ [
+        inputs.nixpkgs-stable.legacyPackages.${pkgs.system}.gimp-with-plugins
       ];
     };
   };
