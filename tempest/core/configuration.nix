@@ -393,6 +393,26 @@
 
     noisetorch.enable = true;
     nix-ld.enable = true;
+
+    ssh = {
+      extraConfig = ''
+        LogLevel ERROR
+
+        Host *
+          AddKeysToAgent yes
+          IdentityFile ~/.ssh/id_ed25519
+
+        Host 192.168.*.*
+          StrictHostKeyChecking no
+          UserKnownHostsFile /dev/null
+        Host 172.16.*.*
+          StrictHostKeyChecking no
+          UserKnownHostsFile /dev/null
+        Host 10.*.*.*
+          StrictHostKeyChecking no
+          UserKnownHostsFile /dev/null
+      '';
+    };
   };
 
   virtualisation = {
