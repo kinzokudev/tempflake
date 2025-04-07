@@ -344,6 +344,7 @@
 
       nodePackages_latest.nodejs
       go
+      python3
     ];
 
     sessionVariables = {
