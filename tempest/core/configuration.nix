@@ -74,7 +74,7 @@
   networking = {
     hostName = "TEMPEST"; # Define your hostname.
     nameservers = [
-      # "192.168.40.20"
+      "192.168.40.20"
       "1.1.1.1"
       "1.0.0.1"
     ];
