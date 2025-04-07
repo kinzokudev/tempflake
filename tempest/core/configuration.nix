@@ -246,6 +246,7 @@
       statix
       deadnix
       yaml-language-server
+      gopls
 
       tmux
 
