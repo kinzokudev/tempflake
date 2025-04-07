@@ -3,6 +3,7 @@
   pkgs,
   userinfo,
   inputs,
+  lib,
   ...
 }:
 
@@ -130,6 +131,18 @@
         Thumbs.db
         unittest.xml
       '';
+    };
+  };
+
+  xdg = {
+    desktopEntries = {
+      "discord-canary" = lib.mkForce {
+        name = "Discord Canary";
+        type = "Application";
+        icon = "discord-canary";
+        terminal = false;
+        exec = "mullvad-exclude DiscordCanary --enable-features=VaapiIgnoreDriverChecks,VaapiVideoEncoder,VaapiVideoDecoder,CanvasOopRasterization,UseMultiPlaneFormatForHardwareVideo,MiddleClickAutoscroll,UseOzonePlatform --ozone-platform=wayland";
+      };
     };
   };
   programs = {
