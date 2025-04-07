@@ -146,6 +146,11 @@
     };
     configFile = {
       "starship.toml".source = ./starship.toml;
+      "bat/config".text = ''
+        --theme Dracula
+        --paging=never
+        --style plain
+      '';
     };
   };
   programs = {
