@@ -343,6 +343,7 @@
       gh
 
       nodePackages_latest.nodejs
+      go
     ];
 
     sessionVariables = {
