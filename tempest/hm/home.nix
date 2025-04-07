@@ -22,10 +22,6 @@
     # changes in each release.
     stateVersion = "24.11";
 
-    packages = with pkgs; [
-      btop
-      fd
-    ];
     shellAliases = {
       tx = "tmux";
       txn = "tmux new";
@@ -54,6 +50,16 @@
       v = "fd --type f --hidden --exclude .git | fzf-tmux -p | xargs nvim";
       udm = "udisksctl mount -b";
       udu = "udisksctl unmount -b";
+    packages =
+      with pkgs;
+      [
+        btop
+        fd
+        kubectl
+        minikube
+        fluxcd
+        talosctl
+      ];
     };
   };
   programs = {

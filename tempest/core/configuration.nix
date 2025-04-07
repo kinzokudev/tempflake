@@ -324,10 +324,6 @@
       ctop
       lazydocker
       kdash
-      kubectl
-      minikube
-      fluxcd
-      talosctl
       asdf-vm
       (google-cloud-sdk.withExtraComponents (
         with google-cloud-sdk.components;
