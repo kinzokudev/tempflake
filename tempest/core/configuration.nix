@@ -320,8 +320,6 @@
       neomutt
       newsboat
       rclone
-      taskwarrior3
-      taskwarrior-tui
       httpie
       ctop
       lazydocker
