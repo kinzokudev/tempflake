@@ -76,6 +76,18 @@
       ++ [
         inputs.nixpkgs-stable.legacyPackages.${pkgs.system}.gimp-with-plugins
       ];
+    file = {
+      ".curlrc".text = ''
+        # When following a redirect, automatically set the previous URL as referer.
+        referer = ";auto"
+
+        # Retrying
+        connect-timeout = 60
+        max-time 120
+        retry 3
+        retry-delay 0
+        retry-max-time 60
+      '';
     };
   };
   programs = {
