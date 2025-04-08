@@ -196,23 +196,39 @@
         ${pkgs.fluxcd}/bin/flux completion fish | source
         ${pkgs.talosctl}/bin/talosctl completion fish | source
         ${pkgs.minikube}/bin/minikube completion fish | source
-
-        # ASDF configuration code
-        if test -z $ASDF_DATA_DIR
-            set _asdf_shims "$HOME/.asdf/shims"
-        else
-            set _asdf_shims "$ASDF_DATA_DIR/shims"
-        end
-
-        # Do not use fish_add_path (added in Fish 3.2) because it
-        # potentially changes the order of items in PATH
-        if not contains $_asdf_shims $PATH
-            set -gx --prepend PATH $_asdf_shims
-        end
-        set --erase _asdf_shims
-
-        export GPG_TTY=$(tty)
       '';
+      shellInit =
+        let
+          homedir = config.home.homeDirectory;
+        in
+        ''
+
+          set -gx KUBE_EDITOR nvim
+          set -gx VISUAL nvim
+          set -gx EDITOR nvim
+          set -gx GOPATH ${homedir}/.go
+          set -gx ANSIBLE_FORCE_COLOR true
+          set -gx ANSIBLE_HOST_KEY_CHECKING False
+          set -gx PY_COLORS true
+          set -gx GPG_TTY (tty)
+          set -gx LANG en_US.utf-8
+
+          if type -q mise
+            if test "$VSCODE_RESOLVING_ENVIRONMENT" = 1
+              ${pkgs.mise}/bin/mise activate fish --shims | source
+            else if status is-interactive
+              ${pkgs.mise}/bin/mise activate fish | source
+            else
+              ${pkgs.mise}/bin/mise activate fish --shims | source
+            end
+          end
+
+          fish_add_path --global ${homedir}/.krew/bin
+          fish_add_path ${homedir}/.local/bin
+          fish_add_path ${homedir}/.cargo/bin
+          fish_add_path ${homedir}/.krew/bin
+          fish_add_path ${homedir}/.go/bin
+        '';
       plugins = [
         {
           name = "grc";
