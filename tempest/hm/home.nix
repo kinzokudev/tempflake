@@ -430,7 +430,11 @@
     direnv = {
       enable = true;
       nix-direnv.enable = true;
-      mise.enable = true;
+    };
+    mise = {
+      enable = true;
+      enableFishIntegration = false;
+    };
     nixcord = {
       enable = true;
       discord = {
