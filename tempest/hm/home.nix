@@ -608,4 +608,5 @@
       };
     };
   };
+  nixpkgs.config.allowUnfree = true;
 }
