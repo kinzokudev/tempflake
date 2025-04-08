@@ -435,6 +435,11 @@
       enable = true;
       enableFishIntegration = false;
     };
+    eza = {
+      enable = true;
+      enableFishIntegration = true;
+      icons = true;
+    };
     nixcord = {
       enable = true;
       discord = {
