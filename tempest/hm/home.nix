@@ -175,17 +175,14 @@
         cat = "bat";
         "co" = {
           expansion = "checkout";
-          position = "command";
           command = "git";
         };
         "pl" = {
           expansion = "pull --rebase --autostash";
-          position = "command";
           command = "git";
         };
         "pf" = {
           expansion = "push --force";
-          position = "command";
           command = "git";
         };
         krew = "kubectl krew";
