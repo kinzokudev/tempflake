@@ -21,7 +21,7 @@ inputs.devenv.lib.mkShell {
           nixfmt-rfc-style
           mdformat
           shfmt
-          treefmt2
+          treefmt
         ];
 
         dotenv.enable = true;
