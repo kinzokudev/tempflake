@@ -126,6 +126,13 @@
         --paging=never
         --style plain
       '';
+      "lazygit/config.yml".text = ''
+        gui:
+          nerdFontsVersion: "3"
+        git:
+          commit:
+            signOff: true
+      '';
     };
   };
   programs = {
