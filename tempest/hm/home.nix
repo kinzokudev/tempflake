@@ -231,24 +231,93 @@
         '';
       plugins = [
         {
-          name = "grc";
-          src = pkgs.fishPlugins.grc.src;
-        }
-        {
-          name = "autopair";
-          src = pkgs.fishPlugins.autopair.src;
-        }
-        {
-          name = "colored-man-pages";
-          src = pkgs.fishPlugins.colored-man-pages.src;
-        }
-        {
-          name = "fish-kubectl-abbr";
+          name = "kubectl-fish-abbr";
           src = pkgs.fetchFromGitHub {
-            owner = "lewisacidic";
-            repo = "fish-kubectl-abbr";
-            rev = "0.1.0";
-            hash = "sha256-x4u8tDuNWMOBFK+5KdF1+k2RJd1vFooRcmEkBXCZZ1M=";
+            owner = "DrPhil";
+            repo = "kubectl-fish-abbr";
+            rev = "ebc68dfb0679e1d57209cef4d02f2214d3cfe783";
+            hash = "sha256-5BBBkFcMYf1h7wn4Qv3umfEFqvlNezy9hbYH52NT1QY=";
+          };
+        }
+        {
+          name = "fish-ssh-agent";
+          src = pkgs.fetchFromGitHub {
+            owner = "danhper";
+            repo = "fish-ssh-agent";
+            rev = "f10d95775352931796fd17f54e6bf2f910163d1b";
+            hash = "sha256-cFroQ7PSBZ5BhXzZEKTKHnEAuEu8W9rFrGZAb8vTgIE=";
+          };
+        }
+        {
+          name = "fish-colored-man";
+          src = pkgs.fetchFromGitHub {
+            owner = "decors";
+            repo = "fish-colored-man";
+            rev = "1ad8fff696d48c8bf173aa98f9dff39d7916de0e";
+            hash = "sha256-uoZ4eSFbZlsRfISIkJQp24qPUNqxeD0JbRb/gVdRYlA=";
+          };
+        }
+        {
+          name = "bass";
+          src = pkgs.fetchFromGitHub {
+            owner = "edc";
+            repo = "bass";
+            rev = "v1.0";
+            hash = "sha256-XpB8u2CcX7jkd+FT3AYJtGwBtmNcLXtfMyT/z7gfyQw=";
+          };
+        }
+        {
+          name = "done";
+          src = pkgs.fetchFromGitHub {
+            owner = "franciscolourenco";
+            repo = "done";
+            rev = "1.19.3";
+            hash = "sha256-DMIRKRAVOn7YEnuAtz4hIxrU93ULxNoQhW6juxCoh4o=";
+          };
+        }
+        {
+          name = "zoxide.fish";
+          src = pkgs.fetchFromGitHub {
+            owner = "kidonng";
+            repo = "zoxide.fish";
+            rev = "bfd5947bcc7cd01beb23c6a40ca9807c174bba0e";
+            hash = "sha256-Hq9UXB99kmbWKUVFDeJL790P8ek+xZR5LDvS+Qih+N4=";
+          };
+        }
+        {
+          name = "autopair.fish";
+          src = pkgs.fetchFromGitHub {
+            owner = "jorgebucaran";
+            repo = "autopair.fish";
+            rev = "1.0.4";
+            hash = "sha256-s1o188TlwpUQEN3X5MxUlD/2CFCpEkWu83U9O+wg3VU=";
+          };
+        }
+        {
+          name = "puffer-fish";
+          src = pkgs.fetchFromGitHub {
+            owner = "nickeb96";
+            repo = "puffer-fish";
+            rev = "v1.0.0";
+            hash = "sha256-2niYj0NLfmVIQguuGTA7RrPIcorJEPkxhH6Dhcy+6Bk=";
+          };
+        }
+        {
+          name = "spark.fish";
+          src = pkgs.fetchFromGitHub {
+            owner = "jorgebucaran";
+            repo = "spark.fish";
+            rev = "1.2.0";
+            hash = "sha256-AIFj7lz+QnqXGMBCfLucVwoBR3dcT0sLNPrQxA5qTuU=";
+          };
+        }
+        {
+          name = "fzf.fish";
+          src = pkgs.fetchFromGitHub {
+            owner = "patrickf3139";
+            repo = "fzf.fish";
+            rev = "v10.3";
+            hash = "sha256-T8KYLA/r/gOKvAivKRoeqIwE2pINlxFQtZJHpOy9GMM=";
           };
         }
       ];
