@@ -192,9 +192,9 @@
         set fish_greeting
         fish_vi_key_bindings
 
+        ${pkgs.kubectl}/bin/kubectl completion fish | source
         ${pkgs.fluxcd}/bin/flux completion fish | source
         ${pkgs.talosctl}/bin/talosctl completion fish | source
-        ${pkgs.kubectl}/bin/kubectl completion fish | source
         ${pkgs.minikube}/bin/minikube completion fish | source
 
         # ASDF configuration code
