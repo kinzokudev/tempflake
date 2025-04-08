@@ -450,6 +450,11 @@
         enter_accept = false;
       };
     };
+    starship = {
+      enable = true;
+      enableFishIntegration = true;
+    };
+
     nixcord = {
       enable = true;
       discord = {
