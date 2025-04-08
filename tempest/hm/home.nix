@@ -46,6 +46,8 @@
         kustomize
         stern
         minijinja
+        cowsay
+        lolcat
       ]
       ++ [
         inputs.nixpkgs-stable.legacyPackages.${pkgs.system}.gimp-with-plugins
