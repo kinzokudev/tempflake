@@ -260,11 +260,18 @@
       lazygit
 
       handbrake
-      ffmpeg_6-full
+      libjxl
+      resvg
+      vips
+      libheif
+      calibre
+      pandoc
+      graphicsmagick
+      inkscape
+      assimp
+      ffmpeg
 
       fastfetch
-
-      imagemagick
 
       ripgrep
 
@@ -345,6 +352,11 @@
       nodePackages_latest.nodejs
       go
       python3
+
+      monero-gui
+      monero-cli
+
+      restic
     ];
 
     sessionVariables = {
