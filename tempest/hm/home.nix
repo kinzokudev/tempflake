@@ -99,6 +99,8 @@
           pushInsteadOf = https://github.com/
         [push]
           autoSetupRemote = true
+        [safe]
+          directory = *
       '';
       ".gitignore_global".text = ''
         *~
