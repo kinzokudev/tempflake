@@ -7,6 +7,7 @@
   pkgs,
   lib,
   userinfo,
+  inputs,
   ...
 }:
 
@@ -456,10 +457,49 @@
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
 
-  nix.settings.experimental-features = [
-    "nix-command"
-    "flakes"
-  ];
+  nix =
+    let
+      nixPath = [
+        "nixpkgs=flake:nixpkgs"
+      ];
+    in
+    {
+      channel.enable = false;
+      inherit nixPath;
+      gc = {
+        automatic = true;
+        dates = "daily";
+        options = "--delete-older-than 7d";
+      };
+      package = pkgs.lixPackageSets.latest.lix;
+      registry = {
+        n.flake = inputs.nixpkgs;
+        master = {
+          from = {
+            type = "indirect";
+            id = "nixpkgs-master";
+          };
+          to = {
+            type = "github";
+            owner = "NixOS";
+            repo = "nixpkgs";
+          };
+        };
+        stable.flake = inputs.nixpkgs-stable;
+      };
+      settings = {
+        auto-optimise-store = true;
+        nix-path = nixPath;
+        warn-dirty = false;
+        use-xdg-base-directories = true;
+        experimental-features = [
+          "nix-command"
+          "flakes"
+        ];
+        cores = 6;
+        max-jobs = 8;
+      };
+    };
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
