@@ -104,6 +104,11 @@
     quickshell = {
       url = "git+https://git.outfoxxed.me/outfoxxed/quickshell";
     };
+
+    nix-index-database = {
+      url = "github:nix-community/nix-index-database";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -149,9 +154,58 @@
       );
 
       treefmtEval = forEachSystem (pkgs: treefmt-nix.lib.evalModule pkgs ./treefmt.nix);
+
+      # mkNixosConfiguration =
+      #   hostname: system:
+      #   lib.nixosSystem (
+      #     let
+      #       specialArgs = {
+      #         inherit
+      #           self
+      #           inputs
+      #           hostname
+      #           userinfo
+      #           ;
+      #       };
+      #     in
+      #     {
+      #       pkgs = import nixpkgs {
+      #         inherit system;
+      #         config.allowUnfree = true;
+      #       };
+      #
+      #       inherit specialArgs;
+      #
+      #       modules = [
+      #         ./hosts/${lib.toLower hostname}
+      #         ./core
+      #         # ./overlays
+      #         inputs.home-manager.nixosModules.home-manager
+      #         {
+      #           home-manager = {
+      #             useGlobalPkgs = true;
+      #             useUserPackages = true;
+      #
+      #             extraSpecialArgs = specialArgs;
+      #
+      #             users.${userinfo.name} = {
+      #               imports = [
+      #                 inputs.nix-index-database.hmModules.nix-index
+      #                 ./hosts/${lib.toLower hostname}/home.nix
+      #                 ./hm
+      #               ];
+      #             };
+      #           };
+      #         }
+      #         (lib.mkAliasOptionModule [ "hm" ] [ "home-manager" "users" userinfo.name ])
+      #         # inputs.impermanence.nixosModules.impermanence
+      #         inputs.sops-nix.nixosModules.sops
+      #       ];
+      #     }
+      #   );
     in
     {
-      inherit lib;
+      inherit lib userinfo;
       devShells = forEachSystem (pkgs: {
         default = import ./devshell.nix {
           inherit inputs pkgs;
@@ -167,20 +221,59 @@
       packages = forEachSystem (pkgs: import ./pkgs { inherit pkgs inputs lib; });
 
       nixosConfigurations = {
-        "TEMPEST" = lib.nixosSystem {
-          system = "x86_64-linux";
-          specialArgs = {
-            inherit
-              inputs
-              outputs
-              userinfo
-              ;
+        "TEMPEST" = lib.nixosSystem (
+          let
             hostname = "TEMPEST";
-          };
-          modules = [
-            ./tempest
-          ];
-        };
+          in
+          {
+            system = "x86_64-linux";
+            specialArgs = {
+              inherit
+                inputs
+                outputs
+                userinfo
+                hostname
+                ;
+            };
+            modules = [
+              ./tempest/core
+              inputs.home-manager.nixosModules.home-manager
+              {
+                home-manager = {
+                  useGlobalPkgs = true;
+                  useUserPackages = true;
+
+                  extraSpecialArgs = {
+                    inherit
+                      inputs
+                      outputs
+                      userinfo
+                      hostname
+                      ;
+                  };
+
+                  # users = {
+                  #   # Import your home-manager configuration
+                  #   ${userinfo.name} = import ./hm;
+                  # };
+                  users.${userinfo.name} = {
+                    imports = [
+                      inputs.nix-index-database.hmModules.nix-index
+                      ./tempest/hm
+                    ];
+                  };
+                  backupFileExtension = "backup";
+                };
+              }
+              # alias for home-manager
+              (lib.mkAliasOptionModule [ "hm" ] [ "home-manager" "users" userinfo.name ])
+
+              # inputs.impermanence.nixosModules.impermanence
+              # inputs.sops-nix.nixosModules.sops
+            ];
+          }
+        );
+        # "TEMPEST" = mkNixosConfiguration "TEMPEST" "x86_64-linux";
       };
     };
 }

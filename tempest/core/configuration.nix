@@ -149,11 +149,11 @@
           kdePackages.kate
         ];
         ignoreShellProgramCheck = true;
-        openssh.authorizedKeys.keys = lib.nebula.getSSHPubkeyList userinfo.handles.github "0h0b2zshm21w4qg0w4y1rbwxpmdfwrarv1pi9dlb6xiywjbfbhsi";
+        openssh.authorizedKeys.keys = lib.nebula.getSSHPubkeyList userinfo.handles.github "1wyfkvdg85m8q1ba583bif5sjhjkgibi8h8hsmzw5bk1w1qgv37z";
       };
       root = {
         ignoreShellProgramCheck = true;
-        openssh.authorizedKeys.keys = lib.nebula.getSSHPubkeyList userinfo.handles.github "0h0b2zshm21w4qg0w4y1rbwxpmdfwrarv1pi9dlb6xiywjbfbhsi";
+        openssh.authorizedKeys.keys = lib.nebula.getSSHPubkeyList userinfo.handles.github "1wyfkvdg85m8q1ba583bif5sjhjkgibi8h8hsmzw5bk1w1qgv37z";
       };
     };
   };
@@ -248,6 +248,7 @@
       deadnix
       yaml-language-server
       gopls
+      emmet-ls
 
       tmux
 
@@ -331,6 +332,9 @@
       httpie
       ctop
       lazydocker
+      podman-compose
+      podman-tui
+      dive
       kdash
       asdf-vm
       (google-cloud-sdk.withExtraComponents (
@@ -358,6 +362,9 @@
       monero-cli
 
       restic
+
+      nix-init
+      nix-update
     ];
 
     sessionVariables = {
@@ -449,6 +456,11 @@
   systemd.tmpfiles.rules = [
     "f /dev/shm/looking-glass 0660 kinzoku qemu-libvirtd -"
     "f /dev/shm/scream 0660 kinzoku qemu-libvirtd -"
+
+    # cleanup nixpkgs-review cache on boot
+    "D! ${config.hm.xdg.cacheHome}/nixpkgs-review 1755 ${userinfo.name} users 5d"
+    # cleanup channels so nix stops complaining
+    "D! /nix/var/nix/profiles/per-user/root 1755 root root 1d"
   ];
 
   # Open ports in the firewall.
@@ -500,6 +512,15 @@
         max-jobs = 8;
       };
     };
+
+  virtualisation.containers.enable = true;
+  virtualisation = {
+    podman = {
+      enable = true;
+      dockerCompat = true;
+      defaultNetwork.settings.dns_enabled = true;
+    };
+  };
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

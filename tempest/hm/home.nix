@@ -118,7 +118,7 @@
         type = "Application";
         icon = "discord-canary";
         terminal = false;
-        exec = "mullvad-exclude DiscordCanary --enable-features=VaapiIgnoreDriverChecks,VaapiVideoEncoder,VaapiVideoDecoder,CanvasOopRasterization,UseMultiPlaneFormatForHardwareVideo,MiddleClickAutoscroll,UseOzonePlatform --ozone-platform=wayland";
+        exec = "DiscordCanary --enable-features=VaapiIgnoreDriverChecks,VaapiVideoEncoder,VaapiVideoDecoder,CanvasOopRasterization,UseMultiPlaneFormatForHardwareVideo,MiddleClickAutoscroll,UseOzonePlatform --ozone-platform=wayland";
       };
     };
     configFile = {
@@ -143,127 +143,157 @@
     home-manager.enable = true;
     fish = {
       enable = true;
-      shellAbbrs = {
-        tx = "tmux";
-        txn = "tmux new";
-        txa = "tmux attach";
-        txd = "tmux detach";
-        txk = "tmux kill-session";
-        txl = "tmux list-sessions";
-        dv = "direnv";
-        dva = "direnv allow";
-        dvs = "direnv status";
-        dvk = "direnv revoke";
-        dvr = "direnv reload";
-        ".." = "cd ..";
-        tfmt = "treefmt";
-        rb = "sudo nixos-rebuild switch --flake .";
-        fu = "sudo nix flake update";
-        ga = "git add .";
-        gc = "git commit -m";
-        gp = "git push -u origin";
-        lg = "lazygit";
-        az = "yazi";
-        nf = "neofetch";
-        ff = "fastfetch";
-        cl = "clear";
-        pm = "pulsemixer";
-        v = "fd --type f --hidden --exclude .git | fzf-tmux -p | xargs nvim";
-        udm = "udisksctl mount -b";
-        udu = "udisksctl unmount -b";
-        fgk = "flux get ks";
-        fgka = "flux get ks -A";
-        fgkn = "flux get ks -n";
-        fgh = "flux get hr";
-        fgha = "flux get hr -A";
-        fghn = "flux get hr -n";
-        tfp = "terraform plan";
-        tfa = "terraform apply";
-        tfi = "terraform init";
-        tff = "terraform fmt";
-        cat = "bat";
-        "co" = {
-          expansion = "checkout";
-          command = "git";
-        };
-        "st" = {
-          expansion = "status";
-          command = "git";
-        };
-        "c" = {
-          expansion = "clone";
-          command = "git";
-        };
-        "i" = {
-          expansion = "init";
-          command = "git";
-        };
-        "a" = {
-          expansion = "add";
-          command = "git";
-        };
-        "rs" = {
-          expansion = "restore";
-          command = "git";
-        };
-        "bs" = {
-          expansion = "bisect";
-          command = "git";
-        };
-        "d" = {
-          expansion = "diff";
-          command = "git";
-        };
-        "g" = {
-          expansion = "grep";
-          command = "git";
-        };
-        "l" = {
-          expansion = "log";
-          command = "git";
-        };
-        "b" = {
-          expansion = "branch";
-          command = "git";
-        };
-        "cm" = {
-          expansion = "commit";
-          command = "git";
-        };
-        "m" = {
-          expansion = "merge";
-          command = "git";
-        };
-        "r" = {
-          expansion = "rebase";
-          command = "git";
-        };
-        "rt" = {
-          expansion = "reset";
-          command = "git";
-        };
-        "s" = {
-          expansion = "switch";
-          command = "git";
-        };
-        "t" = {
-          expansion = "tag";
-          command = "git";
-        };
-        "f" = {
-          expansion = "fetch";
-          command = "git";
-        };
-        "pl" = {
-          expansion = "pull --rebase --autostash";
-          command = "git";
-        };
-        "pf" = {
-          expansion = "push --force";
-          command = "git";
-        };
-        krew = "kubectl krew";
-      };
+      shellAbbrs =
+        let
+          kubectlAbbrs = {
+            # g = "get";
+            # ds = "describe";
+            # dl = "delete";
+            # l = "logs";
+            # cr = "create";
+            # ed = "edit";
+            # ex = "exec";
+            # el = "explain";
+            # ep = "expose";
+            # r = "run";
+            # s = "scale";
+            # t = "top";
+            po = "pod";
+            dep = "deployment";
+            sts = "statefulset";
+            dms = "daemonset";
+            svc = "service";
+            sec = "secret";
+            ing = "ingress";
+            exs = "externalsecret";
+            cls = "cluster";
+          };
+        in
+        {
+          tx = "tmux";
+          txn = "tmux new";
+          txa = "tmux attach";
+          txd = "tmux detach";
+          txk = "tmux kill-session";
+          txl = "tmux list-sessions";
+          dv = "direnv";
+          dva = "direnv allow";
+          dvs = "direnv status";
+          dvk = "direnv revoke";
+          dvr = "direnv reload";
+          ".." = "cd ..";
+          tfmt = "treefmt";
+          rb = "sudo nixos-rebuild switch --flake .";
+          fu = "sudo nix flake update";
+          ga = "git add .";
+          gc = "git commit -m";
+          gp = "git push -u origin";
+          lg = "lazygit";
+          az = "yazi";
+          nf = "neofetch";
+          ff = "fastfetch";
+          cl = "clear";
+          pm = "pulsemixer";
+          v = "fd --type f --hidden --exclude .git | fzf-tmux -p | xargs nvim";
+          udm = "udisksctl mount -b";
+          udu = "udisksctl unmount -b";
+          fgk = "flux get ks";
+          fgka = "flux get ks -A";
+          fgkn = "flux get ks -n";
+          fgh = "flux get hr";
+          fgha = "flux get hr -A";
+          fghn = "flux get hr -n";
+          tfp = "terraform plan";
+          tfa = "terraform apply";
+          tfi = "terraform init";
+          tff = "terraform fmt";
+          cat = "bat";
+          "co" = {
+            expansion = "checkout";
+            command = "git";
+          };
+          "st" = {
+            expansion = "status";
+            command = "git";
+          };
+          "c" = {
+            expansion = "clone";
+            command = "git";
+          };
+          "i" = {
+            expansion = "init";
+            command = "git";
+          };
+          "a" = {
+            expansion = "add";
+            command = "git";
+          };
+          "rs" = {
+            expansion = "restore";
+            command = "git";
+          };
+          "bs" = {
+            expansion = "bisect";
+            command = "git";
+          };
+          "d" = {
+            expansion = "diff";
+            command = "git";
+          };
+          "g" = {
+            expansion = "grep";
+            command = "git";
+          };
+          "l" = {
+            expansion = "log";
+            command = "git";
+          };
+          "b" = {
+            expansion = "branch";
+            command = "git";
+          };
+          "cm" = {
+            expansion = "commit";
+            command = "git";
+          };
+          "m" = {
+            expansion = "merge";
+            command = "git";
+          };
+          "r" = {
+            expansion = "rebase";
+            command = "git";
+          };
+          "rt" = {
+            expansion = "reset";
+            command = "git";
+          };
+          "s" = {
+            expansion = "switch";
+            command = "git";
+          };
+          "t" = {
+            expansion = "tag";
+            command = "git";
+          };
+          "f" = {
+            expansion = "fetch";
+            command = "git";
+          };
+          "pl" = {
+            expansion = "pull --rebase --autostash";
+            command = "git";
+          };
+          "pf" = {
+            expansion = "push --force";
+            command = "git";
+          };
+          krew = "kubectl krew";
+        }
+        // builtins.mapAttrs (name: value: {
+          expansion = "${value}";
+          command = "kubectl";
+        }) kubectlAbbrs;
       interactiveShellInit = ''
         set fish_greeting
         fish_vi_key_bindings
@@ -481,18 +511,18 @@
                 ${pkgs.terraform}/bin/terraform $argv
               '';
         };
-        "watch" = {
-          description = "watch with fish alias support";
-          body = ''
-            if test (count $argv) -gt 0
-              if type -q viddy
-                ${pkgs.viddy}/bin/viddy --disable_auto_save --differences --interval 2 --shell ${pkgs.fish}/bin/fish $argv[1..-1]
-              else
-                command watch -x ${pkgs.fish}/bin/fish -c "$argv"
-              end
-            else
-          '';
-        };
+        # "watch" = {
+        #   description = "watch with fish alias support";
+        #   body = ''
+        #     if test (count $argv) -gt 0
+        #       if type -q viddy
+        #         ${pkgs.viddy}/bin/viddy --disable_auto_save --differences --interval 2 --shell ${pkgs.fish}/bin/fish $argv[1..-1]
+        #       else
+        #         command watch -x ${pkgs.fish}/bin/fish -c "$argv"
+        #       end
+        #     else
+        #   '';
+        # };
       };
     };
 
@@ -549,7 +579,7 @@
             (pkgs.makeDesktopItem {
               name = "vesktop";
               desktopName = "Discord";
-              exec = "mullvad-exclude vesktop --enable-features=VaapiIgnoreDriverChecks,VaapiVideoEncoder,VaapiVideoDecoder,CanvasOopRasterization,UseMultiPlaneFormatForHardwareVideo,MiddleClickAutoscroll,UseOzonePlatform --ozone-platform=wayland";
+              exec = "vesktop --enable-features=VaapiIgnoreDriverChecks,VaapiVideoEncoder,VaapiVideoDecoder,CanvasOopRasterization,UseMultiPlaneFormatForHardwareVideo,MiddleClickAutoscroll,UseOzonePlatform --ozone-platform=wayland";
               icon = "discord";
               startupWMClass = "VencordDesktop";
               genericName = "Internet Messenger";
